@@ -7,6 +7,7 @@
 #include <vector>
 #include <math.h>
 #include <memory>
+#include <map>
 
 typedef std::complex<double> Complex;
 typedef std::valarray<Complex> CArray;
@@ -14,11 +15,16 @@ typedef std::valarray<Complex> CArray;
 class Visualizer
 {
 private:
+    int WINDOW_WIDTH = 1600;
+    int WINDOW_HEIGHT = 900;
     SDL_Window* sdl_window;
     SDL_Renderer* sdl_renderer;
 public:
     Visualizer();
-    void displaySpectrum(CArray &complexFFT, double samplesPerSecond);
+    void displayWrap(CArray &complexFFT, double samplesPerSecond, CArray fftArray);
+    void renderSpectrum(CArray &complexFFT, double samplesPerSecond);
+    void renderWaveform(CArray preFFT);
+    void resize(int width);
 };
 
 struct AudioData
@@ -32,5 +38,7 @@ struct AudioData
     double binSize;
     std::shared_ptr<Visualizer> visualizer;
 };
+
+
 
 #endif

@@ -24,7 +24,7 @@ namespace dataProcess
         }
     }
 
-    CArray streamToCArray(Uint8 *stream, Uint32 &length, int &numChannels, int &bytesPerSample, bool &isBigEndian)
+    CArray streamToCArray(Uint8 *stream, Uint32 length, int numChannels, int bytesPerSample, bool isBigEndian)
     {
         CArray samples = CArray(length / (bytesPerSample * numChannels));
 
@@ -34,7 +34,7 @@ namespace dataProcess
             {
                 for(int i = 0; i < length; i += bytesPerSample * numChannels)
                 {
-                    samples[i / (bytesPerSample * numChannels)] = Complex(static_cast<double>(stream[i]), 0.0);
+                    samples[i / (bytesPerSample * numChannels)] = Complex(static_cast<double>(stream[i] + stream[i + 1]) / 2.0 - 128, 0.0);
                 }
             }
             else if(bytesPerSample == 2)

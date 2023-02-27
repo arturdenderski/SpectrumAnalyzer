@@ -16,9 +16,10 @@ void customCallback(void *audioData, Uint8 *stream, int streamLength)
 
     SDL_memcpy(stream, audio->pos, length);
 
-    CArray fftArray = dataProcess::streamToCArray(audio->pos, length, audio->numChannels, audio->bytesPerSample, audio->isBigEndian);
-    dataProcess::fft(fftArray);
-    audio->visualizer->displaySpectrum(fftArray, static_cast<double>(audio->spec.freq));
+    CArray preFFT = dataProcess::streamToCArray(audio->pos, length, audio->numChannels, audio->bytesPerSample, audio->isBigEndian);
+    CArray postFFT = preFFT;
+    dataProcess::fft(postFFT);
+    audio->visualizer->displayWrap(postFFT, static_cast<double>(audio->spec.freq), preFFT);
     
     audio->pos += length;
     audio->length -= length;
@@ -47,6 +48,8 @@ void App::run(const char* filePath)
         std::cerr << "Could not load a file!";
         return;
     }
+
+    this->visualizer->resize(this->audioSpec.samples / 2 - 1);
 
     Uint8* wavStart = this->audioData.pos;
     Uint32 wavLength = this->audioData.length;
