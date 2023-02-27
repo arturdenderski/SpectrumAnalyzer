@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "../include/app.h"
-#include "../include/dataprocess.h"
 
 void customCallback(void *audioData, Uint8 *stream, int streamLength)
 {
@@ -56,6 +55,7 @@ void App::run(const char* filePath)
     this->audioData.bytesPerSample = static_cast<int>(SDL_AUDIO_BITSIZE(this->audioSpec.format)) / 8;
     this->audioData.isBigEndian = SDL_AUDIO_ISBIGENDIAN(this->audioSpec.format);
     this->audioData.spec = this->audioSpec;
+    this->audioData.binSize = this->audioSpec.freq / (this->audioSpec.samples);
 
     this->audioSpec.callback = customCallback;
     this->audioSpec.userdata = &(this->audioData);

@@ -28,9 +28,32 @@ namespace dataProcess
     {
         CArray samples = CArray(length / (bytesPerSample * numChannels));
 
-        for(int i = 0; i < length; i += bytesPerSample * numChannels)
+        if(numChannels == 2)
         {
-            samples[i / (bytesPerSample * numChannels)] = Complex(static_cast<double>(stream[i] + stream[i + 1]) / 2.0, 0.0);
+            if(bytesPerSample == 1)
+            {
+                for(int i = 0; i < length; i += bytesPerSample * numChannels)
+                {
+                    samples[i / (bytesPerSample * numChannels)] = Complex(static_cast<double>(stream[i]), 0.0);
+                }
+            }
+            else if(bytesPerSample == 2)
+            {
+                if(isBigEndian)
+                {
+                    for(int i = 0; i < length; i += bytesPerSample * numChannels)
+                    {
+                        samples[i / (bytesPerSample * numChannels)] = Complex(static_cast<double>(static_cast<short int>(stream[i] << 8) + stream[i + 1] + static_cast<short int>(stream[i + 2] << 8) + stream[i + 3]) / 2.0 / 255.0, 0.0);
+                    }
+                }
+                else
+                {
+                    for(int i = 0; i < length; i += bytesPerSample * numChannels)
+                    {
+                        samples[i / (bytesPerSample * numChannels)] = Complex(static_cast<double>(static_cast<short int>(stream[i + 1] << 8) + stream[i] + static_cast<short int>(stream[i + 3] << 8) + stream[i + 2]) / 2.0 / 255.0, 0.0);
+                    }
+                }
+            }
         }
 
         return samples;

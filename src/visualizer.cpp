@@ -38,9 +38,9 @@ void Visualizer::displaySpectrum(CArray &complexFFT, double samplesPerSecond)
 
     for(int i = 1; i < complexFFT.size() / 2; i++)
     {
-        double dbValue = 10 * log10(fabs(complexFFT[i]) / samplesPerSecond);
+        double dbValue = 10 * log10(fabs(complexFFT[i]) / (255 * complexFFT.size()));
 
-        if(dbValue < -35.0)
+        if(dbValue < -40.0)
         {
             dbValue = 0.001;
         }
@@ -48,7 +48,7 @@ void Visualizer::displaySpectrum(CArray &complexFFT, double samplesPerSecond)
         {
             if(dbValue <= 0)
             {
-                dbValue = (dbValue + 35.0) / 35.0;
+                dbValue = (dbValue + 40.0) / 40.0;
             }
             else
             {
@@ -59,7 +59,7 @@ void Visualizer::displaySpectrum(CArray &complexFFT, double samplesPerSecond)
         SDL_Rect rect;
         rect.w = 1;
         rect.h = std::ceil(dbValue * 720);
-        rect.x = i * 2 - 2;
+        rect.x = i - 1;
         rect.y = 720 - rect.h;
 
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);

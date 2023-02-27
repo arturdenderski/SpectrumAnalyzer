@@ -29,6 +29,7 @@ struct AudioData
     int numChannels;
     int bytesPerSample;
     bool isBigEndian;
+    double binSize;
     std::shared_ptr<Visualizer> visualizer;
 };
 

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "visualizer.h"
 #include "dataprocess.h"
 
 void customCallback(void *audioData, Uint8 *stream, int streamLength);
