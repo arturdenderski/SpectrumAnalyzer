@@ -49,8 +49,6 @@ void App::run(const char* filePath)
         return;
     }
 
-    this->visualizer->resize(this->audioSpec.samples / 2 - 1);
-
     Uint8* wavStart = this->audioData.pos;
     Uint32 wavLength = this->audioData.length;
 
@@ -63,7 +61,8 @@ void App::run(const char* filePath)
     this->audioSpec.callback = customCallback;
     this->audioSpec.userdata = &(this->audioData);
     
-    this->audioDeviceID = SDL_OpenAudioDevice(NULL, 0, &(this->audioSpec), NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
+    this->audioDeviceID = SDL_OpenAudioDevice(NULL, 0, &(this->audioSpec), &(this->deviceSpec), SDL_AUDIO_ALLOW_ANY_CHANGE);
+    this->visualizer->resize(this->deviceSpec.samples / 2 - 1);
 
     if(this->audioDeviceID == 0)
     {

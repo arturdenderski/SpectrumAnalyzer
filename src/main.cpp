@@ -6,7 +6,7 @@
 
 int main()
 {
-    const char* filePath = "../res/audioFile16.wav";
+    const char* filePath = "../res/audioFile8.wav";
 
     App app;
     app.run(filePath);

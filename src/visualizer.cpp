@@ -41,7 +41,6 @@ void Visualizer::displayWrap(CArray &complexFFT, double samplesPerSecond, CArray
 
 void Visualizer::renderSpectrum(CArray &complexFFT, double samplesPerSecond)
 {
-    
     for(int i = 1; i < complexFFT.size() / 2; i++)
     {
         double dbValue = 10 * log10(fabs(complexFFT[i]) / (255 * complexFFT.size()));

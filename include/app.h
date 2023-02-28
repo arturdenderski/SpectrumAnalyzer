@@ -14,6 +14,7 @@ private:
     std::shared_ptr<Visualizer> visualizer;
     AudioData audioData;
     SDL_AudioSpec audioSpec;
+    SDL_AudioSpec deviceSpec;
     SDL_AudioDeviceID audioDeviceID;
 public:
     App();
