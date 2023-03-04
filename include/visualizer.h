@@ -21,9 +21,9 @@ private:
     SDL_Renderer* sdl_renderer;
 public:
     Visualizer();
-    void displayWrap(CArray &complexFFT, double samplesPerSecond, CArray fftArray);
+    void displayWrap(CArray &complexFFT, double samplesPerSecond, CArray &fftArray);
     void renderSpectrum(CArray &complexFFT, double samplesPerSecond);
-    void renderWaveform(CArray preFFT);
+    void renderWaveform(CArray &preFFT);
     void resize(int width);
 };
 
@@ -38,7 +38,5 @@ struct AudioData
     double binSize;
     std::shared_ptr<Visualizer> visualizer;
 };
-
-
 
 #endif

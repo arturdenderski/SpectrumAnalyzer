@@ -27,7 +27,7 @@ Visualizer::Visualizer()
     this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, 0);
 }
 
-void Visualizer::displayWrap(CArray &complexFFT, double samplesPerSecond, CArray fftArray)
+void Visualizer::displayWrap(CArray &complexFFT, double samplesPerSecond, CArray &fftArray)
 {
     SDL_SetRenderDrawColor(this->sdl_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->sdl_renderer);
@@ -43,9 +43,9 @@ void Visualizer::renderSpectrum(CArray &complexFFT, double samplesPerSecond)
 {
     for(int i = 1; i < complexFFT.size() / 2; i++)
     {
-        double dbValue = 10 * log10(fabs(complexFFT[i]) / (255 * complexFFT.size()));
+        double dbValue = 10.0 * log10(fabs(complexFFT[i]) / (255 * complexFFT.size()));
 
-        if(dbValue < -45.0)
+        if(dbValue < -40.0)
         {
             dbValue = 0.001;
         }
@@ -53,7 +53,7 @@ void Visualizer::renderSpectrum(CArray &complexFFT, double samplesPerSecond)
         {
             if(dbValue <= 0)
             {
-                dbValue = (dbValue + 45.0) / 45.0;
+                dbValue = (dbValue + 40.0) / 40.0;
             }
             else
             {
@@ -72,23 +72,12 @@ void Visualizer::renderSpectrum(CArray &complexFFT, double samplesPerSecond)
     }
 }
 
-void Visualizer::renderWaveform(CArray preFFT)
+void Visualizer::renderWaveform(CArray &preFFT)
 {
     SDL_SetRenderDrawColor(this->sdl_renderer, 255, 255, 255, 255);
     for(int i = 0; i < this->WINDOW_WIDTH; i++)
     {
-        //SDL_RenderDrawPoint(this->sdl_renderer, i , 150 + (static_cast<int>(real(preFFT[i]) / 255.0 * 150.0)));
-
         SDL_RenderDrawLine(this->sdl_renderer, i, 150 + (static_cast<int>(real(preFFT[i]) / 255.0 * 150.0)), i + 1, 150 + (static_cast<int>(real(preFFT[i + 1]) / 255.0 * 150.0)));
-        
-        // int scaledSample = static_cast<int>(real(preFFT[i]) / 255.0 * 150.0);
-
-        // SDL_Rect rect;
-        // rect.w = 1;
-        // rect.h = scaledSample < 0 ? -scaledSample : scaledSample;
-        // rect.x = i;
-        // rect.y = scaledSample < 0 ? 150 : 150 - rect.h;
-        // SDL_RenderFillRect(this->sdl_renderer, &rect);
     }
 }
 

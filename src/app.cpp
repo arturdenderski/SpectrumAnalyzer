@@ -62,7 +62,6 @@ void App::run(const char* filePath)
     this->audioSpec.userdata = &(this->audioData);
     
     this->audioDeviceID = SDL_OpenAudioDevice(NULL, 0, &(this->audioSpec), &(this->deviceSpec), SDL_AUDIO_ALLOW_ANY_CHANGE);
-    this->visualizer->resize(this->deviceSpec.samples / 2 - 1);
 
     if(this->audioDeviceID == 0)
     {
@@ -70,8 +69,10 @@ void App::run(const char* filePath)
         return;
     }
 
+    this->visualizer->resize(this->deviceSpec.samples / 2 - 1);
+
     bool isRunning = true;
-    bool isPlaying = false;
+    bool isPaused = false;
     SDL_Event sdl_event;
 
     SDL_PauseAudioDevice(this->audioDeviceID, 0);
@@ -86,8 +87,8 @@ void App::run(const char* filePath)
             }
             if(sdl_event.type == SDL_KEYUP && sdl_event.key.keysym.sym == SDLK_SPACE)
             {
-                isPlaying = isPlaying ? 0 : 1;
-                SDL_PauseAudioDevice(this->audioDeviceID, isPlaying);
+                isPaused = isPaused ? 0 : 1;
+                SDL_PauseAudioDevice(this->audioDeviceID, isPaused);
             }
         }
         else if(this->audioData.length <= 0)
