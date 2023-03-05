@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(spectrum_analyzer VERSION 0.1.0)
+project(SpectrumAnalyzer VERSION 0.1.0)
 
 set(SOURCE_FILES 
     include/app.h
@@ -10,12 +10,10 @@ set(SOURCE_FILES
     src/visualizer.cpp
     src/main.cpp)
 
-add_executable(spectrum_analyzer ${SOURCE_FILES})
+find_package(SDL2 REQUIRED)
 
-target_include_directories(spectrum_analyzer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/SDL-2.26.3/include)
+include_directories(${SDL2_INCLUDE_DIRS})
 
-target_link_libraries(spectrum_analyzer SDL2main SDL2)
+add_executable(SpectrumAnalyzer ${SOURCE_FILES})
 
-if (WIN32)
-    add_definitions(-DSDL_MAIN_HANDLED)
-endif (WIN32)
+target_link_libraries(SpectrumAnalyzer ${SDL2_LIBRARIES})
