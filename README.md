@@ -1,6 +1,8 @@
 # Simple Spectrum Analyzer using SDL and FFT algorithm
 
-![App Preview](https://github.com/arturdenderski/SpectrumAnalyzer/blob/main/res/appGif.gif)
+<p align="center">
+<img width="80%" alt="App Preview" src="https://github.com/arturdenderski/SpectrumAnalyzer/blob/main/res/appGif.gif">
+</p>
 
 ## Dependencies
 
@@ -11,7 +13,7 @@
 - [Cmake](https://cmake.org/)
 - [SDL2](https://www.libsdl.org/)
 
-```
+```sh
 sudo apt-get install git build-essential pkg-config cmake cmake-data libsdl2-dev
 ```
 
