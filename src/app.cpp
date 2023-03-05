@@ -56,7 +56,6 @@ void App::run(const char* filePath)
     this->audioData.bytesPerSample = static_cast<int>(SDL_AUDIO_BITSIZE(this->audioSpec.format)) / 8;
     this->audioData.isBigEndian = SDL_AUDIO_ISBIGENDIAN(this->audioSpec.format);
     this->audioData.spec = this->audioSpec;
-    this->audioData.binSize = this->audioSpec.freq / (this->audioSpec.samples);
 
     this->audioSpec.callback = customCallback;
     this->audioSpec.userdata = &(this->audioData);
@@ -69,6 +68,7 @@ void App::run(const char* filePath)
         return;
     }
 
+    this->audioData.binSize = this->deviceSpec.freq / (this->deviceSpec.samples);
     this->visualizer->resize(this->deviceSpec.samples / 2 - 1);
 
     bool isRunning = true;
