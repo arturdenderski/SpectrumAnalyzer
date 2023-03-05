@@ -1,4 +1,4 @@
-# Simple Spectrum Analyzer using SDL and FFT algorithm
+# Simple Spectrum Analyzer Using SDL And FFT Algorithm
 
 <p align="center">
 <img width="80%" alt="App Preview" src="https://github.com/arturdenderski/SpectrumAnalyzer/blob/main/res/appGif.gif">
