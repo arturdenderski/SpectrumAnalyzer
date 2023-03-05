@@ -33,6 +33,6 @@ make
 ./SpectrumAnalyzer
 ```
 
-## Controls:
+## Controls
 
 - Space - Pause
